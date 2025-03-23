@@ -1,112 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Приветствую. Спасибо за приглашение!
 
-# 🎉 Welcome to the NestJS Base Template! 🎉
+## Описание работы системы
+В рамках выполнения тестового задания я решил сгенерировать проект из своего [шаблона](https://github.com/idmaksim/nestjs-base-template)
 
----
+В системе есть возможность авторизации под тестовыми учетными данными
+ - Логин (почта): `string@gmail.com`
+ - Пароль: `string`
 
-🚀 **Kickstart your NestJS journey with this comprehensive template!** 🚀
+После отправки этих данных по пути `/api/auth/sign-in`, Вы получите access и refresh JWT-токены.
 
-This template is designed to provide you with a solid foundation for building scalable and maintainable server-side applications using **NestJS**. It comes packed with essential features to streamline your development process.
+В системе предусмотрена возможность поиска товаров, по которым можно будет выполнять транзакции (в рамках этого задания - только покупка)
 
----
+Чтобы купить товар, необходимо найти нужный товар; отправить свой JWT access токен, id товара и количество на метод покупки товара (`/api/products/buy`)
 
-## ✨ Features ✨
+В момент покупки будут совершены проверки на существование товара и пользователя в системе, проверен баланс пользователя и возможность приобрести данный товар. Далее будет создана запись в таблице `transactions` и, в случае успеха всех действий, возвращен ответ.
 
-- **🔑 JWT Authentication**: Authorization is handled using **JWT** and **passport-jwt**, ensuring secure and stateless authentication.
+Пользователь также может выполнить поиск по своим транзакциям в методе `/api/transactions/my`, передав токен
 
-- **🔑 Sessions**: Sessions are handled using **Redis/Memory** to store user sessions and manage them.
+Благодаря шаблону, в этом проекте также есть:
+- загрузка медиа-файлов для аваторов пользователя
+- система разграничения прав доступа по ролям пользователей
+- разделение приложения на главную часть (в `/apps/main`) и админскую (`apps/admin`)
+- конфигурация для локальной развертки со всем необходимым (S3-совместимое хранилище, БД Postgres, главное и админское приложения)
+- базовая схема БД (таблицы users, permissions, roles, sessions, medias)
+- файл с нагрузочным тестированием на вход в приложение
+- файл конфигурации CI CD пайплайна
 
-- **🛡️ Role-Based Access Control**: Effortlessly manage user roles and permissions to ensure the right access levels.
 
-- **🌐 Internationalization Support**: Seamlessly support multiple languages and locales to reach a global audience.
+## Как запустить
+Клонируем репо:
+ ```bash
+ git clone https://github.com/idmaksim/user-balance-ledger-api.git
+ cd user-balance-ledger-api
+ ```
+Убеждаемся, что на ПК есть docker
+...
+Не имеем локально запущенных контейнеров, которые могут конфликтовать с моими: S3 Minio, Postgres
+...
+Выполняем сборку проекта со всеми зависимостями
+(набираемся терпения, процесс в первый раз будет небыстрым)
+```bash
+docker compose up --build
+```
 
-- **📜 Swagger Documentation**: Automatically generated API documentation to help you and your team understand and use the API effectively.
+Переходим на http://localhost:3000/api для получения swagger документации главного приложения
+На http://localhost:3001/api - для админского.
 
-- **🛠️ Modular Architecture**: Clean and organized structure to facilitate scalability and maintainability.
-
-- **⚡ High Performance**: Optimized for speed and efficiency, ensuring your application runs smoothly.
-
-- **🐳 Docker**: Docker compose file for development environment.
-
----
-
-## 📘 Introduction
-
-This template is structured to help you quickly start developing your NestJS application. Here's how you can make the most of it:
-
-- **Apps**: Add new apps in the `apps` directory. Each app should encapsulate related functionality, including modules, common types, guards, interceptors, etc.
-
-- **Modules**: Add new features by creating modules in the `<app-name>/src/modules` directory. Each module should encapsulate related functionality, including controllers, services, and repositories.
-
-- **Controllers**: Define your API endpoints in controllers. Place them in the respective module's directory under `app-name/src/modules`.
-
-- **Services**: Implement your business logic in services. These should also be placed within the module's directory.
-
-- **Repositories**: Interact with the database using repositories. Define them in the module's directory and use Prisma or TypeORM for database operations.
-
-- **DTOs (Data Transfer Objects)**: Define DTOs in the `dto` directory within each module to validate and type-check incoming data.
-
-- **Guards and Interceptors**: Implement guards and interceptors in the `libs/common/src/guards` directory to handle cross-cutting concerns like authentication and logging.
-
-- **Configuration**: Manage application configuration using the `ConfigModule` in `apps/app-name/src/config`. Environment variables can be defined in `.env` files.
-
-- **Internationalization**: Add translations in the `libs/i18n` directory to support multiple languages.
-
-- **Swagger Documentation**: Automatically generate API documentation by annotating your controllers and DTOs with Swagger decorators.
-
----
-
-## 📚 Applications Structure
-
-### Main API (apps/main)
-
-- Primary API application
-- Port: 3000
-- Swagger: http://localhost:3000/api
-
-### Admin API (apps/admin)
-
-- Administrative API
-- Port: 3001
-- Swagger: http://localhost:3001/api
-
----
-
-## 🚀 Getting Started
-
-To get started with this template, follow these steps:
-
-1. **Create Your Repository**: This is a GitHub template repository. Use it to create your own repository by clicking the "Use this template" button on GitHub.
-
-2. **Clone Your Repository**: Clone your newly created repository to your local machine.
-
-   ```bash
-   git clone <your-repository-url>
-   ```
-
-3. **Install Dependencies**: Navigate to the project directory and install the necessary dependencies.
-
-   ```bash
-   cd <your-repository-name>
-   pnpm install
-   ```
-
-4. **Set Up Environment Variables**: Create a `.env` file in the root directory and configure your environment variables. Refer to `.env.example` for guidance.
-
-5. **Database Setup**: Ensure your database is running and configured correctly. Use Prisma or TypeORM migrations to set up your database schema.
-
-6. **Run the Application**: Start the application in development mode.
-
-   ```bash
-   pnpm start:dev
-   ```
-
-7. **Access Swagger Documentation**: Visit `http://localhost:<3000/3001>/api` to view the automatically generated Swagger documentation.
-
-8. **Explore and Customize**: Explore the codebase, add new features, and customize the template to fit your project needs.
-
----
-
-Explore these features and more to build a powerful and flexible application with NestJS! 🚀
