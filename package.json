@@ -9,6 +9,7 @@
     "seed": "ts-node prisma/seeds/seed.ts"
   },
   "scripts": {
+    "prettier": "prettier --write **/*.ts",
     "build": "nest build main && nest build admin",
     "build:main": "nest build main",
     "build:admin": "nest build admin",
@@ -115,7 +116,8 @@
       "^@app/token(|/.*)$": "<rootDir>/libs/token/src/$1",
       "^@app/prisma(|/.*)$": "<rootDir>/libs/prisma/src/$1",
       "^@app/sessions(|/.*)$": "<rootDir>/libs/sessions/src/$1",
-      "^@app/media(|/.*)$": "<rootDir>/libs/media/src/$1"
+      "^@app/media(|/.*)$": "<rootDir>/libs/media/src/$1",
+      "^@app/products(|/.*)$": "<rootDir>/libs/products/src/$1"
     }
   }
 }

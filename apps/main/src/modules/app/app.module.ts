@@ -11,6 +11,7 @@ import { UsersModule as LibUsersModule } from '@app/users';
 import { PermissionModule as LibPermissionModule } from '@app/permissions';
 import { S3Module } from 'nestjs-s3';
 import { MediaModule } from '../media/media.module';
+import { ProductsModule } from '../products/products.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { MediaModule } from '../media/media.module';
     LibUsersModule,
     LibPermissionModule,
     MediaModule,
+    ProductsModule,
   ],
 })
 export class AppModule implements NestModule {

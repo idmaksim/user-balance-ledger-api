@@ -3,6 +3,7 @@ import { seedPermission } from './permission.seed';
 import { seedRole } from './role.seed';
 import { seedUser } from './user.seed';
 import { s3Seed } from './s3.seed';
+import { seedProducts } from './product.seed';
 
 const prisma = new PrismaClient();
 
@@ -18,6 +19,9 @@ async function main() {
 
   await seedUser(prisma);
   console.log('[+] User created');
+
+  await seedProducts(prisma);
+  console.log('[+] Products created');
 
   console.log('[+] All set');
 }

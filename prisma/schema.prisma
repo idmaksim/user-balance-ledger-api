@@ -12,6 +12,27 @@ enum MediaType {
   AVATAR
 }
 
+model Product {
+  id           String        @id @default(uuid())
+  name         String
+  price        Float
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @default(now()) @updatedAt @map("updated_at")
+  transactions Transaction[]
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  amount    Int
+  action    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String   @map("product_id")
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+}
+
 model Media {
   id        String    @id @default(uuid())
   url       String
@@ -24,16 +45,18 @@ model Media {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  password  String
-  roleId    String    @map("role_id")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
-  role      Role      @relation(fields: [roleId], references: [id], onDelete: NoAction)
-  sessions  Session[]
-  avatar    Media?    @relation(fields: [avatarId], references: [id], onDelete: SetNull)
-  avatarId  String?
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  roleId       String        @map("role_id")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @default(now()) @updatedAt @map("updated_at")
+  role         Role          @relation(fields: [roleId], references: [id], onDelete: NoAction)
+  sessions     Session[]
+  avatar       Media?        @relation(fields: [avatarId], references: [id], onDelete: SetNull)
+  avatarId     String?
+  balance      Float         @default(0)
+  transactions Transaction[]
 
   @@index([email])
   @@map("users")
