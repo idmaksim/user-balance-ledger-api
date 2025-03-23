@@ -24,7 +24,7 @@ model Product {
 model Transaction {
   id        String   @id @default(uuid())
   userId    String   @map("user_id")
-  amount    Int
+  amount    Float
   action    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   productId String   @map("product_id")
