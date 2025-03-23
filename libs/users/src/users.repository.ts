@@ -15,6 +15,13 @@ export class UsersRepository {
     });
   }
 
+  async updateBalance(userId: string, amount: number) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { balance: amount },
+    });
+  }
+
   async findOneByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },

@@ -11,6 +11,7 @@ export const seedUser = async (prisma: PrismaClient) => {
           name: BaseRoleEnum.Admin,
         },
       },
+      balance: 1000,
     },
   });
 };

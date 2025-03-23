@@ -77,6 +77,12 @@
       ],
       "@app/products/*": [
         "libs/products/src/*"
+      ],
+      "@app/transactions": [
+        "libs/transactions/src"
+      ],
+      "@app/transactions/*": [
+        "libs/transactions/src/*"
       ]
     }
   }

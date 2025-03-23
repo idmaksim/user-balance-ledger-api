@@ -16,6 +16,12 @@ export class ProductRepository {
     });
   }
 
+  async findOneById(id: string) {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
+  }
+
   async count(dto: ProductSearchDto) {
     return this.prisma.product.count({
       where: mapSearch(dto.filters),

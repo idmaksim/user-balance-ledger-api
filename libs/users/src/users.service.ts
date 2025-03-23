@@ -10,6 +10,7 @@ import { UserCreateDto } from './dto/user-create.dto';
 import { I18nService } from 'nestjs-i18n';
 import { PasswordService } from '@app/password';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { User } from '@app/common';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,11 @@ export class UsersService {
     private readonly i18n: I18nService,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
+
+  async updateBalance(user: User, amount: number) {
+    const newBalance = user.balance + amount;
+    return this.usersRepository.updateBalance(user.id, newBalance);
+  }
 
   async create(dto: UserCreateDto) {
     await this.ensureExistsByEmail(dto.email);
@@ -43,12 +49,6 @@ export class UsersService {
   }
 
   async findOneById(id: string) {
-    const cachedUser = await this.cacheManager.get(`user:${id}`);
-    if (cachedUser) {
-      this.logger.log(`User ${id} found in cache`);
-      return cachedUser;
-    }
-
     const user = await this.usersRepository.findOneById(id);
     if (!user) {
       this.logger.warn(`User ${id} not found`);
