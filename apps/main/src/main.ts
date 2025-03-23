@@ -32,7 +32,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
 
   const config = new DocumentBuilder()
-    .setTitle('Nest Template')
+    .setTitle('User Management API')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
@@ -53,7 +53,7 @@ async function bootstrap() {
       tryItOutEnabled: true,
       syntaxHighlight: true,
     },
-    customSiteTitle: 'Nest Template',
+    customSiteTitle: 'User Management API',
   });
   await app.listen(port);
 }

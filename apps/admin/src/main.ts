@@ -21,7 +21,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3001;
 
   const config = new DocumentBuilder()
-    .setTitle('Admin Nest Template')
+    .setTitle('Admin Management API')
     .addBearerAuth({
       type: 'http',
       scheme: 'bearer',
@@ -42,7 +42,7 @@ async function bootstrap() {
       tryItOutEnabled: true,
       syntaxHighlight: true,
     },
-    customSiteTitle: 'Admin Nest Template',
+    customSiteTitle: 'Admin Management API',
   });
   await app.listen(port);
 }
