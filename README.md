@@ -33,6 +33,12 @@
  git clone https://github.com/idmaksim/user-balance-ledger-api.git
  cd user-balance-ledger-api
  ```
+
+Копируем `.env.example` в `.env`:
+```bash
+cp .env.example .env
+```
+
 Убеждаемся, что на ПК есть docker
 
 ...
